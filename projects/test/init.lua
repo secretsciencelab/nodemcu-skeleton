@@ -2,35 +2,35 @@
 dofile("credentials.lua")
 
 function syncClock()
-	-- sync time
-	sntp.sync("pool.ntp.org", 
-	function()
-		--print("[SNTP] synced time: " .. rtctime.get())
-	end,
-	function()
-		--print("[SNTP] error")
-	end, nil)
+  -- sync time
+  sntp.sync("pool.ntp.org", 
+  function()
+    --print("[SNTP] synced time: " .. rtctime.get())
+  end,
+  function()
+    --print("[SNTP] error")
+  end, nil)
 end
 
 function startup()
   if file.open("init.lua") == nil then
     print("init.lua deleted or renamed")
-		return
-	end
+    return
+  end
   file.close("init.lua")
 
   if file.open("main.lua") == nil then
     print("main.lua deleted or renamed")
-		return
-	end
+    return
+  end
   file.close("main.lua")
 
-	luatz_timetable = require("luatz_timetable")
+  luatz_timetable = require("luatz_timetable")
 
-	print('\nSecret Science Lab execute main.lua\n')
+  print('\nSecret Science Lab execute main.lua\n')
 
-	-- set up sntp to sync clock
-	syncClock()
+  -- set up sntp to sync clock
+  syncClock()
 
   -- the actual application is stored in 'main.lua'
   dofile("main.lc")

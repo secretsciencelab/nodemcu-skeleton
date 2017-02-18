@@ -5,23 +5,23 @@ g_lastFetchData = ""
 
 -- Functions
 function getTime()
-	local sec, usec = rtctime.get()
-	sec = sec - 25200 -- -7 hours (PDT)
-	return luatz_timetable.new_from_timestamp(sec)
+  local sec, usec = rtctime.get()
+  sec = sec - 25200 -- -7 hours (PDT)
+  return luatz_timetable.new_from_timestamp(sec)
 end
 
 -- Start a simple http server
 srv=net.createServer(net.TCP)
 function receiver(sck, data)
-	--print data
-	local now = getTime()
-	local rssi = wifi.sta.getrssi()
-	local quality = 0
-	if (rssi ~= nil) then
-		quality = (100 + rssi)*2
-		if (quality > 100) then
-			quality = 100
-		end
+  --print data
+  local now = getTime()
+  local rssi = wifi.sta.getrssi()
+  local quality = 0
+  if (rssi ~= nil) then
+    quality = (100 + rssi)*2
+    if (quality > 100) then
+      quality = 100
+    end
   end
   local uptime = tmr.time() / 60
   local fsRemaining, fsUsed, fsTotal = file.fsinfo()
@@ -69,13 +69,13 @@ tmr.alarm(2, 10000, tmr.ALARM_AUTO, function()
     return
   end
 
-	g_lastFetchTime = getTime():rfc_3339()
+  g_lastFetchTime = getTime():rfc_3339()
   http.get("http://secretsciencelab.appspot.com/homebot/epochtime", nil, function(code, data)
     if (code < 0) then
       --print("HTTP request failed")
     else
-			g_lastFetchCode = code
-			g_lastFetchData = data
+      g_lastFetchCode = code
+      g_lastFetchData = data
     end
   end)
 end)
