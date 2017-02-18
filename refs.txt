@@ -1,0 +1,18 @@
+top
+https://nodemcu.readthedocs.io/en/dev/en/
+
+build firmware
+Edit app/include/user_modules.h, select modules
+https://hub.docker.com/r/marcelstoer/nodemcu-build/
+
+flash firmware
+esptool.py --port /dev/ttyUSB0 write_flash 0x00000 nodemcu_integer_master_20170204-2028.bin
+
+upload code
+http://www.allaboutcircuits.com/projects/how-to-make-an-interactive-tcp-server-nodemcu-on-the-esp8266/
+https://github.com/4refr0nt/luatool
+
+talk to device
+sudo apt-get install minicom
+minicom -s
+select /dev/ttyUSB0
